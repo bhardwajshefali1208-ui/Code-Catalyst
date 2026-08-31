@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Fraud Dashboard | Build Bank</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="logo">
+        🛡️ Build<span>Bank</span>
+    </div>
+
+    <nav>
+
+        <a href="/">
+            Transaction
+        </a>
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="dashboard">
+
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <p class="tag">
+                SECURITY CENTER
+            </p>
+
+            <h1>
+                Fraud Monitoring
+            </h1>
+
+            <p>
+                Real-time overview of analyzed transactions.
+            </p>
+
+        </div>
+
+        <div class="live">
+            <span></span>
+            SYSTEM ACTIVE
+        </div>
+
+    </div>
+
+
+    <section class="stats">
+
+
+        <div class="stat-card">
+
+            <p>Total Transactions</p>
+
+            <h2>{{ total }}</h2>
+
+            <span>Analyzed</span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <p>High Risk</p>
+
+            <h2>{{ high_risk }}</h2>
+
+            <span>Requires attention</span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <p>Medium Risk</p>
+
+            <h2>{{ medium_risk }}</h2>
+
+            <span>Confirmation required</span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <p>Blocked</p>
+
+            <h2>{{ blocked }}</h2>
+
+            <span>Prevented</span>
+
+        </div>
+
+
+    </section>
+
+
+    <section class="transactions">
+
+        <div class="table-header">
+
+            <div>
+
+                <p class="tag">
+                    LIVE MONITOR
+                </p>
+
+                <h2>Recent Transactions</h2>
+
+            </div>
+
+        </div>
+
+
+        {% if transactions %}
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Recipient</th>
+                        <th>Amount</th>
+                        <th>Risk</th>
+                        <th>Score</th>
+                        <th>Action</th>
+                        <th>Time</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for transaction in transactions %}
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                {{ transaction["recipient"] }}
+                            </strong>
+
+                            <small>
+                                {{ transaction["upi_id"] }}
+                            </small>
+
+                        </td>
+
+
+                        <td>
+
+                            ₹{{ "{:,.0f}".format(transaction["amount"]) }}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if transaction["risk_level"] == "HIGH" %}
+
+                            <span class="badge high">
+                                HIGH
+                            </span>
+
+                            {% elif transaction["risk_level"] == "MEDIUM" %}
+
+                            <span class="badge medium">
+                                MEDIUM
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge low">
+                                LOW
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                {{ transaction["risk_score"] }}/100
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+
+                            {{ transaction["action"] }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ transaction["created_at"] }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty">
+
+            <h3>No transactions yet</h3>
+
+            <p>
+                Run your first transaction analysis.
+            </p>
+
+            <a href="/">
+                Test Transaction →
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+
+</main>
+
+</body>
+
+</html>

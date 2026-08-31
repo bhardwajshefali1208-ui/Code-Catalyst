@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Build Bank | Fraud Protection</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        🛡️ Build<span>Bank</span>
+    </div>
+
+    <nav>
+        <a href="/">Transaction</a>
+        <a href="/dashboard">Dashboard</a>
+    </nav>
+
+</header>
+
+
+<main>
+
+    <section class="hero">
+
+        <div>
+
+            <p class="tag">
+                REAL-TIME FRAUD PROTECTION
+            </p>
+
+            <h1>
+                Protect every<br>
+                <span>transaction.</span>
+            </h1>
+
+            <p class="subtitle">
+                Build Bank analyzes transaction behaviour,
+                recipient history, device signals and location
+                to detect suspicious payments before they become fraud.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="transaction-card">
+
+        <div class="card-header">
+
+            <div>
+                <h2>Send Money</h2>
+                <p>Run a real-time fraud check</p>
+            </div>
+
+            <div class="secure">
+                🔒 Secure Check
+            </div>
+
+        </div>
+
+
+        <form action="/check" method="POST">
+
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>Your Name</label>
+
+                    <input
+                        type="text"
+                        name="sender"
+                        value="Shivani"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Recipient Name</label>
+
+                    <input
+                        type="text"
+                        name="recipient"
+                        placeholder="Rahul Sharma"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Recipient UPI ID</label>
+
+                    <input
+                        type="text"
+                        name="upi_id"
+                        placeholder="rahul@upi"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Transaction Amount (₹)</label>
+
+                    <input
+                        type="number"
+                        name="amount"
+                        placeholder="12000"
+                        min="1"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Your Average Transaction (₹)</label>
+
+                    <input
+                        type="number"
+                        name="average_amount"
+                        value="2000"
+                        min="1"
+                        required
+                    >
+
+                    <small>
+                        Used to detect unusual spending.
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="signals">
+
+                <h3>Transaction Signals</h3>
+
+                <p>
+                    These simulate real-time signals collected
+                    during transaction analysis.
+                </p>
+
+
+                <div class="signal-grid">
+
+
+                    <div class="signal">
+
+                        <span>👤</span>
+
+                        <div>
+
+                            <strong>New Recipient?</strong>
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="new_recipient"
+                                    value="yes"
+                                    checked
+                                >
+                                Yes
+                            </label>
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="new_recipient"
+                                    value="no"
+                                >
+                                No
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="signal">
+
+                        <span>⚠️</span>
+
+                        <div>
+
+                            <strong>Suspicious Recipient?</strong>
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="suspicious_recipient"
+                                    value="yes"
+                                >
+                                Yes
+                            </label>
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="suspicious_recipient"
+                                    value="no"
+                                    checked
+                                >
+                                No
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="signal">
+
+                        <span>📱</span>
+
+                        <div>
+
+                            <strong>Unknown Device?</strong>
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="unknown_device"
+                                    value="yes"
+                                >
+                                Yes
+                            </label>
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="unknown_device"
+                                    value="no"
+                                    checked
+                                >
+                                No
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="signal">
+
+                        <span>📍</span>
+
+                        <div>
+
+                            <strong>Unusual Location?</strong>
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="unusual_location"
+                                    value="yes"
+                                >
+                                Yes
+                            </label>
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="unusual_location"
+                                    value="no"
+                                    checked
+                                >
+                                No
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="check-button"
+            >
+                CHECK TRANSACTION
+                <span>→</span>
+            </button>
+
+
+        </form>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        Build Bank © 2026 | Real-Time Fraud Explainer
+    </p>
+
+</footer>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Risk Analysis | Build Bank</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="logo">
+        🛡️ Build<span>Bank</span>
+    </div>
+
+    <nav>
+        <a href="/">New Transaction</a>
+        <a href="/dashboard">Dashboard</a>
+    </nav>
+
+</header>
+
+
+<main class="result-page">
+
+
+    <div class="result-header">
+
+        {% if result.level == "HIGH" %}
+
+            <div class="warning-icon">⚠️</div>
+
+            <p class="tag danger-text">
+                HIGH RISK TRANSACTION
+            </p>
+
+            <h1>
+                Transaction <span>Blocked</span>
+            </h1>
+
+        {% elif result.level == "MEDIUM" %}
+
+            <div class="warning-icon">🟠</div>
+
+            <p class="tag medium-text">
+                MEDIUM RISK TRANSACTION
+            </p>
+
+            <h1>
+                Confirmation <span>Required</span>
+            </h1>
+
+        {% else %}
+
+            <div class="warning-icon">✅</div>
+
+            <p class="tag success-text">
+                LOW RISK TRANSACTION
+            </p>
+
+            <h1>
+                Transaction <span>Approved</span>
+            </h1>
+
+        {% endif %}
+
+    </div>
+
+
+    <section class="result-grid">
+
+
+        <div class="risk-card">
+
+            <p>FRAUD RISK SCORE</p>
+
+            <div class="score">
+                {{ result.score }}
+                <small>/100</small>
+            </div>
+
+            <div class="score-bar">
+
+                <div
+                    class="score-fill"
+                    style="width: {{ result.score }}%;"
+                ></div>
+
+            </div>
+
+            <strong>
+                {{ result.level }} RISK
+            </strong>
+
+        </div>
+
+
+        <div class="transaction-summary">
+
+            <h2>Transaction Details</h2>
+
+            <div class="detail">
+                <span>Recipient</span>
+                <strong>{{ transaction.recipient }}</strong>
+            </div>
+
+            <div class="detail">
+                <span>UPI ID</span>
+                <strong>{{ transaction.upi_id }}</strong>
+            </div>
+
+            <div class="detail">
+                <span>Amount</span>
+                <strong>₹{{ "{:,.0f}".format(transaction.amount) }}</strong>
+            </div>
+
+            <div class="detail">
+                <span>Action</span>
+                <strong>{{ result.action }}</strong>
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <section class="explanation">
+
+        <div class="section-title">
+
+            <p class="tag">
+                EXPLAINABLE AI
+            </p>
+
+            <h2>
+                Why was this transaction flagged?
+            </h2>
+
+            <p>
+                Build Bank doesn't just provide a score.
+                It explains the signals that contributed to the decision.
+            </p>
+
+        </div>
+
+
+        <div class="reason-list">
+
+            {% for reason in result.reasons %}
+
+            <div class="reason">
+
+                <div class="reason-icon">
+                    ⚠
+                </div>
+
+                <div>
+                    <strong>{{ reason }}</strong>
+
+                    <p>
+                        This signal increased the transaction's
+                        calculated risk score.
+                    </p>
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <div class="result-actions">
+
+        <a href="/" class="secondary-button">
+            ← Test Another Transaction
+        </a>
+
+        <a href="/dashboard" class="primary-button">
+            View Dashboard →
+        </a>
+
+    </div>
+
+
+</main>
+
+</body>
+
+</html>
