@@ -104,4 +104,4 @@ def dashboard():
 
 
 if __name__ == "__main__":
-    app.run(debugs=True)
+    app.run(debug=True)
