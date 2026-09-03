@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -22,11 +23,13 @@
 
 <body>
 
+
 <header>
 
     <div class="logo">
         🛡️ Build<span>Bank</span>
     </div>
+
 
     <nav>
 
@@ -43,8 +46,11 @@
 </header>
 
 
+
 <main class="dashboard">
 
+
+    <!-- DASHBOARD HEADER -->
 
     <div class="dashboard-header">
 
@@ -64,57 +70,109 @@
 
         </div>
 
+
         <div class="live">
+
             <span></span>
+
             SYSTEM ACTIVE
+
         </div>
 
     </div>
 
+
+
+    <!-- STATISTICS -->
 
     <section class="stats">
 
 
         <div class="stat-card">
 
-            <p>Total Transactions</p>
+            <p>
+                Total Transactions
+            </p>
 
-            <h2>{{ total }}</h2>
+            <h2>
+                {{ total }}
+            </h2>
 
-            <span>Analyzed</span>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <p>High Risk</p>
-
-            <h2>{{ high_risk }}</h2>
-
-            <span>Requires attention</span>
+            <span>
+                100% analyzed
+            </span>
 
         </div>
 
 
+
         <div class="stat-card">
 
-            <p>Medium Risk</p>
+            <p>
+                High Risk
+            </p>
 
-            <h2>{{ medium_risk }}</h2>
+            <h2>
+                {{ high_risk }}
+            </h2>
 
-            <span>Confirmation required</span>
+            <span>
+                {{ high_percentage }}% of transactions
+            </span>
 
         </div>
 
 
+
         <div class="stat-card">
 
-            <p>Blocked</p>
+            <p>
+                Medium Risk
+            </p>
 
-            <h2>{{ blocked }}</h2>
+            <h2>
+                {{ medium_risk }}
+            </h2>
 
-            <span>Prevented</span>
+            <span>
+                {{ medium_percentage }}% of transactions
+            </span>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <p>
+                Low Risk
+            </p>
+
+            <h2>
+                {{ low_risk }}
+            </h2>
+
+            <span>
+                {{ low_percentage }}% of transactions
+            </span>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <p>
+                Blocked
+            </p>
+
+            <h2>
+                {{ blocked }}
+            </h2>
+
+            <span>
+                {{ blocked_percentage }}% prevented
+            </span>
 
         </div>
 
@@ -122,7 +180,166 @@
     </section>
 
 
+
+    <!-- FILTER SECTION -->
+
+    <section class="filter-card">
+
+        <div class="filter-header">
+
+            <div>
+
+                <p class="tag">
+                    TRANSACTION FILTER
+                </p>
+
+                <h2>
+                    Search & Filter
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <form
+            method="GET"
+            action="/dashboard"
+            class="filter-form"
+        >
+
+
+            <!-- SEARCH -->
+
+            <div class="filter-input">
+
+                <label>
+                    Search
+                </label>
+
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Recipient, sender or UPI ID"
+                    value="{{ search }}"
+                >
+
+            </div>
+
+
+
+            <!-- RISK -->
+
+            <div class="filter-input">
+
+                <label>
+                    Risk Level
+                </label>
+
+                <select name="risk">
+
+                    <option value="">
+                        All Risk Levels
+                    </option>
+
+                    <option
+                        value="HIGH"
+                        {% if risk_filter == "HIGH" %}selected{% endif %}
+                    >
+                        High Risk
+                    </option>
+
+                    <option
+                        value="MEDIUM"
+                        {% if risk_filter == "MEDIUM" %}selected{% endif %}
+                    >
+                        Medium Risk
+                    </option>
+
+                    <option
+                        value="LOW"
+                        {% if risk_filter == "LOW" %}selected{% endif %}
+                    >
+                        Low Risk
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- ACTION -->
+
+            <div class="filter-input">
+
+                <label>
+                    Action
+                </label>
+
+                <select name="action">
+
+                    <option value="">
+                        All Actions
+                    </option>
+
+                    <option
+                        value="TRANSACTION BLOCKED"
+                        {% if action_filter == "TRANSACTION BLOCKED" %}selected{% endif %}
+                    >
+                        Blocked
+                    </option>
+
+                    <option
+                        value="TRANSACTION ALLOWED"
+                        {% if action_filter == "TRANSACTION ALLOWED" %}selected{% endif %}
+                    >
+                        Allowed
+                    </option>
+
+                    <option
+                        value="TRANSACTION REVIEW"
+                        {% if action_filter == "TRANSACTION REVIEW" %}selected{% endif %}
+                    >
+                        Review
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <div class="filter-buttons">
+
+                <button
+                    type="submit"
+                    class="filter-button"
+                >
+                    Apply Filters
+                </button>
+
+
+                <a
+                    href="/dashboard"
+                    class="clear-button"
+                >
+                    Clear
+                </a>
+
+            </div>
+
+
+        </form>
+
+    </section>
+
+
+
+    <!-- TRANSACTIONS -->
+
     <section class="transactions">
+
 
         <div class="table-header">
 
@@ -132,40 +349,78 @@
                     LIVE MONITOR
                 </p>
 
-                <h2>Recent Transactions</h2>
+                <h2>
+                    Recent Transactions
+                </h2>
+
+                {% if search or risk_filter or action_filter %}
+
+                <p class="filter-result-text">
+                    Showing filtered results
+                </p>
+
+                {% endif %}
 
             </div>
 
         </div>
 
 
+
         {% if transactions %}
+
 
         <div class="table-container">
 
             <table>
 
+
                 <thead>
 
                     <tr>
 
-                        <th>Recipient</th>
-                        <th>Amount</th>
-                        <th>Risk</th>
-                        <th>Score</th>
-                        <th>Action</th>
-                        <th>Time</th>
+                        <th>
+                            Recipient
+                        </th>
+
+                        <th>
+                            Amount
+                        </th>
+
+                        <th>
+                            Risk
+                        </th>
+
+                        <th>
+                            Score
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                        <th>
+                            Time
+                        </th>
+
+                        <th>
+                            Details
+                        </th>
 
                     </tr>
 
                 </thead>
 
 
+
                 <tbody>
+
 
                     {% for transaction in transactions %}
 
+
                     <tr>
+
 
                         <td>
 
@@ -180,6 +435,7 @@
                         </td>
 
 
+
                         <td>
 
                             ₹{{ "{:,.0f}".format(transaction["amount"]) }}
@@ -187,7 +443,9 @@
                         </td>
 
 
+
                         <td>
+
 
                             {% if transaction["risk_level"] == "HIGH" %}
 
@@ -195,11 +453,13 @@
                                 HIGH
                             </span>
 
+
                             {% elif transaction["risk_level"] == "MEDIUM" %}
 
                             <span class="badge medium">
                                 MEDIUM
                             </span>
+
 
                             {% else %}
 
@@ -209,7 +469,9 @@
 
                             {% endif %}
 
+
                         </td>
+
 
 
                         <td>
@@ -221,11 +483,13 @@
                         </td>
 
 
+
                         <td>
 
                             {{ transaction["action"] }}
 
                         </td>
+
 
 
                         <td>
@@ -234,24 +498,45 @@
 
                         </td>
 
+
+
+                        <td>
+
+                            <a
+                                href="{{ url_for('transaction_details', transaction_id=transaction['id']) }}"
+                                class="details-button"
+                            >
+                                View
+                            </a>
+
+                        </td>
+
+
                     </tr>
+
 
                     {% endfor %}
 
+
                 </tbody>
+
 
             </table>
 
         </div>
 
+
         {% else %}
+
 
         <div class="empty">
 
-            <h3>No transactions yet</h3>
+            <h3>
+                No transactions found
+            </h3>
 
             <p>
-                Run your first transaction analysis.
+                Try changing your search or filters.
             </p>
 
             <a href="/">
@@ -260,12 +545,15 @@
 
         </div>
 
-        {% endifs %}
+
+        {% endif %}
+
 
     </section>
 
 
 </main>
+
 
 </body>
 

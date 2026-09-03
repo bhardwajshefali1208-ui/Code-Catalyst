@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Transaction Details | Build Bank</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🛡️ Build<span>Bank</span>
+    </div>
+
+
+    <nav>
+
+        <a href="/">
+            Transaction
+        </a>
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<main class="transaction-details-page">
+
+
+    <div class="details-top">
+
+        <div>
+
+            <p class="tag">
+                SECURITY CENTER
+            </p>
+
+            <h1>
+                Transaction Details
+            </h1>
+
+            <p>
+                Detailed fraud analysis for transaction #{{ transaction["id"] }}
+            </p>
+
+        </div>
+
+
+        <a
+            href="/dashboard"
+            class="secondary-button"
+        >
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+
+
+    <!-- RISK SUMMARY -->
+
+    <section class="detail-risk-card">
+
+
+        <div>
+
+            <p class="detail-label">
+                RISK SCORE
+            </p>
+
+            <div class="detail-score">
+                {{ transaction["risk_score"] }}
+                <span>/100</span>
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <p class="detail-label">
+                RISK LEVEL
+            </p>
+
+
+            {% if transaction["risk_level"] == "HIGH" %}
+
+            <span class="badge high large-badge">
+                HIGH RISK
+            </span>
+
+
+            {% elif transaction["risk_level"] == "MEDIUM" %}
+
+            <span class="badge medium large-badge">
+                MEDIUM RISK
+            </span>
+
+
+            {% else %}
+
+            <span class="badge low large-badge">
+                LOW RISK
+            </span>
+
+            {% endif %}
+
+        </div>
+
+
+        <div>
+
+            <p class="detail-label">
+                SYSTEM ACTION
+            </p>
+
+            <strong class="action-value">
+                {{ transaction["action"] }}
+            </strong>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- TRANSACTION INFORMATION -->
+
+    <section class="detail-grid">
+
+
+        <div class="detail-panel">
+
+            <p class="tag">
+                TRANSACTION INFORMATION
+            </p>
+
+            <h2>
+                Payment Details
+            </h2>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Transaction ID
+                </span>
+
+                <strong>
+                    #{{ transaction["id"] }}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Sender
+                </span>
+
+                <strong>
+                    {{ transaction["sender"] }}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Recipient
+                </span>
+
+                <strong>
+                    {{ transaction["recipient"] }}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    UPI ID
+                </span>
+
+                <strong>
+                    {{ transaction["upi_id"] }}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Amount
+                </span>
+
+                <strong>
+                    ₹{{ "{:,.2f}".format(transaction["amount"]) }}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Analyzed At
+                </span>
+
+                <strong>
+                    {{ transaction["created_at"] }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FRAUD REASONS -->
+
+        <div class="detail-panel">
+
+            <p class="tag">
+                RISK ANALYSIS
+            </p>
+
+            <h2>
+                Detection Reasons
+            </h2>
+
+
+            {% if reasons %}
+
+
+            <div class="detail-reasons">
+
+
+                {% for reason in reasons %}
+
+                <div class="detail-reason">
+
+                    <span>
+                        ⚠
+                    </span>
+
+                    <p>
+                        {{ reason }}
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+
+            </div>
+
+
+            {% else %}
+
+
+            <div class="no-reasons">
+
+                <span>
+                    ✓
+                </span>
+
+                <p>
+                    No specific risk factors were detected.
+                </p>
+
+            </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <div class="details-footer">
+
+        <a
+            href="/"
+            class="primary-button"
+        >
+            Analyze New Transaction
+        </a>
+
+
+        <a
+            href="/dashboard"
+            class="secondary-button"
+        >
+            View All Transactions
+        </a>
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

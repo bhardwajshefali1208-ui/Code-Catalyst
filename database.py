@@ -71,16 +71,73 @@ def save_transaction(transaction, risk_result):
     connection.close()
 
 
-def get_transactions():
+def get_transactions(search="", risk_level="", action=""):
 
     connection = get_connection()
 
-    transactions = connection.execute("""
+    query = """
         SELECT *
         FROM transactions
+        WHERE 1=1
+    """
+
+    parameters = []
+
+    # Search recipient, sender or UPI ID
+    if search:
+        query += """
+            AND (
+                recipient LIKE ?
+                OR sender LIKE ?
+                OR upi_id LIKE ?
+            )
+        """
+
+        search_value = f"%{search}%"
+
+        parameters.extend([
+            search_value,
+            search_value,
+            search_value
+        ])
+
+    # Risk filter
+    if risk_level:
+        query += " AND risk_level = ?"
+        parameters.append(risk_level)
+
+    # Action filter
+    if action:
+        query += " AND action = ?"
+        parameters.append(action)
+
+    query += """
         ORDER BY id DESC
-    """).fetchall()
+    """
+
+    transactions = connection.execute(
+        query,
+        parameters
+    ).fetchall()
 
     connection.close()
 
     return transactions
+
+
+def get_transaction(transaction_id):
+
+    connection = get_connection()
+
+    transaction = connection.execute(
+        """
+        SELECT *
+        FROM transactions
+        WHERE id = ?
+        """,
+        (transaction_id,)
+    ).fetchone()
+
+    connection.close()
+
+    return transaction
