@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function ()
 
     if (form) {
 
-        form.addEvent Listener("submit", function () {
+        form.addEventListener("submit", function () {
 
             const button = form.querySelector("button");
 
