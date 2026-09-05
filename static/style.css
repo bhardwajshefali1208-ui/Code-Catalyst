@@ -667,5 +667,412 @@ footer {
     .stats {
         grid-template-columns: 1fr;
     }
+}  
+/* ================================
+   DASHBOARD FILTERS
+================================ */
+
+.filter-card {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    margin-bottom: 30px;
+
+    box-shadow: 0 6px 20px rgba(20, 30, 60, 0.06);
+}
+
+.filter-header {
+    margin-bottom: 25px;
+}
+
+.filter-form {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr auto;
+    gap: 15px;
+    align-items: end;
+}
+
+.filter-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-input label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #5c6475;
+}
+
+.filter-input input,
+.filter-input select {
+    border: 1px solid #dce1ea;
+    border-radius: 9px;
+
+    padding: 12px;
+
+    font-size: 14px;
+
+    background: white;
+
+    outline: none;
+}
+
+.filter-input input:focus,
+.filter-input select:focus {
+    border-color: #3867ff;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.filter-button {
+    border: none;
+    border-radius: 9px;
+
+    background: #3867ff;
+    color: white;
+
+    padding: 12px 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+.filter-button:hover {
+    background: #2855e6;
+}
+
+.clear-button {
+    border: 1px solid #dce1ea;
+    border-radius: 9px;
+
+    background: white;
+    color: #5c6475;
+
+    padding: 12px 16px;
+
+    text-decoration: none;
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+.clear-button:hover {
+    border-color: #3867ff;
+    color: #3867ff;
+}
+
+.filter-result-text {
+    color: #3867ff !important;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+
+/* ================================
+   DETAILS BUTTON
+================================ */
+
+.details-button {
+    display: inline-block;
+
+    padding: 7px 12px;
+
+    border-radius: 7px;
+
+    background: #edf2ff;
+    color: #3867ff;
+
+    text-decoration: none;
+
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.details-button:hover {
+    background: #3867ff;
+    color: white;
+}
+
+
+/* ================================
+   TRANSACTION DETAILS PAGE
+================================ */
+
+.transaction-details-page {
+    padding: 55px 0;
+}
+
+.details-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 35px;
+}
+
+.details-top h1 {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+.details-top p:last-child {
+    color: #858da0;
+}
+
+
+/* RISK SUMMARY */
+
+.detail-risk-card {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    margin-bottom: 25px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    gap: 30px;
+
+    box-shadow: 0 8px 25px rgba(20, 30, 60, 0.07);
+}
+
+.detail-label {
+    color: #858da0;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 10px;
+}
+
+.detail-score {
+    font-size: 48px;
+    font-weight: 800;
+}
+
+.detail-score span {
+    font-size: 18px;
+    color: #9299a8;
+}
+
+.large-badge {
+    display: inline-block;
+
+    padding: 8px 13px;
+
+    font-size: 11px;
+}
+
+.action-value {
+    font-size: 15px;
+}
+
+
+/* DETAIL GRID */
+
+.detail-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 25px;
+}
+
+.detail-panel {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    box-shadow: 0 8px 25px rgba(20, 30, 60, 0.07);
+}
+
+.detail-panel h2 {
+    margin-bottom: 25px;
+}
+
+.detail-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #edf0f4;
+
+    font-size: 13px;
+}
+
+.detail-row span {
+    color: #8991a0;
+}
+
+.detail-row strong {
+    text-align: right;
+}
+
+
+/* RISK REASONS */
+
+.detail-reasons {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.detail-reason {
+    display: flex;
+
+    gap: 12px;
+
+    align-items: center;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    background: #fafbfc;
+}
+
+.detail-reason span {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    background: #fff0f1;
+
+    color: #dc3545;
+
+    font-weight: bold;
+}
+
+.detail-reason p {
+    font-size: 13px;
+
+    color: #5c6475;
+}
+
+.no-reasons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 20px;
+
+    background: #edf7ef;
+
+    border-radius: 10px;
+
+    color: #198754;
+}
+
+.no-reasons p {
+    font-size: 13px;
+}
+
+
+/* DETAILS FOOTER */
+
+.details-footer {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-top: 30px;
+}
+
+
+/* ================================
+   RESPONSIVE FILTERS
+================================ */
+
+@media (max-width: 1000px) {
+
+    .filter-form {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .filter-buttons {
+        grid-column: span 2;
+    }
+
+    .detail-risk-card {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .filter-form {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-buttons {
+        grid-column: span 1;
+    }
+
+    .detail-risk-card {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .details-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .filter-card,
+    .detail-panel,
+    .detail-risk-card {
+        padding: 22px;
+    }
+
+    .details-top h1 {
+        font-size: 32px;
+    }
+
+    .details-footer {
+        flex-direction: column;
+    }
 
 }

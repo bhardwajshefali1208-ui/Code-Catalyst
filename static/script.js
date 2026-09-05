@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", function ()
- {
+document.addEventListener("DOMContentLoaded", function () {
 
     const form = document.querySelector("form");
 
@@ -18,6 +17,30 @@ document.addEventListener("DOMContentLoaded", function ()
             }
 
         });
+
+    }
+
+
+    /*
+     * Automatically refresh dashboard
+     * every 30 seconds when no filters
+     * are being used.
+     */
+
+    const isDashboard =
+        window.location.pathname === "/dashboard";
+
+    const hasFilters =
+        window.location.search.length > 0;
+
+
+    if (isDashboard && !hasFilters) {
+
+        setTimeout(function () {
+
+            window.location.reload();
+
+        }, 30000);
 
     }
 
